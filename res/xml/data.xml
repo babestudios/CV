@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+    <pages>
+        <page id="1" name="Basic Information" description="">
+			<picture image="" caption="Bertalan Zsolt" text="Jómagam"/>
+            <line style="list" caption="Address" text="Hungary, Győr, Pátzay Pál utca 22."/>
+			<line style="list" caption="Email" text="herrbert74@gmail.com"/>
+			<line style="list" caption="Marital Status" text="Single"/>
+			<line style="list" caption="Driver's Licence" text="Category B"/>
+			<line style="list" caption="Languages" text=""/>
+			<line style="list" caption="Hungarian" text="mother tongue"/>	
+			<line style="list" caption="English" text="advanced"/>
+			<line style="list" caption="German" text="intermediate"/>
+        </page> 
+        <page id="2" name="Schools" description="Education">
+			<line style="list" caption="Elementary school" text="Petőfi Sándor Elementary School, Darnózseli, Hungary"/>
+			<line style="detail" caption="" text="1981-89"/>
+			<line style="list" caption="High school" text="Jedlik Ányos Industrial Secondary School, Győr, Hungary"/>
+			<line style="detail" caption="" text="1989-94"/>
+			<line style="list" caption="College" text="Széchenyi István College, Győr, Hungary, Transport Engineer"/>
+			<line style="detail" caption="" text="1994-97"/>
+			<line style="list" caption="College" text="Széchenyi István University, Győr, Hungary, Informatics Engineering, BSC"/>
+			<line style="detail" caption="" text="2010-13"/>	
+        </page>
+        <page id="3" name="Working Experience" description="">
+		    <line style="list" caption="BOS Hungary, Mosonszolnok, Hungary" text="Logistics Engineer"/>
+			<line style="detail" caption="" text="2000-05"/>
+			<line style="list" caption="Vogel-Noot Hungary, Mosonmagyaróvár, Hungary" text="Logistics Engineer"/>
+			<line style="detail" caption="" text="2005"/>
+			<line style="list" caption="Tulip International, Thetford, Norfolk" text="Warehouse Picker, later Administrator"/>
+			<line style="detail" caption="" text="2005-08"/>
+			<line style="list" caption="self employed, Győr, Hungary" text="Professional Online Poker Player"/>
+			<line style="detail" caption="" text="2008-11"/>
+			<line style="list" caption="Szintézis-Net LLC, Győr, Hungary" text="Android Developer"/>
+			<line style="detail" caption="" text="2011-to date"/>			
+        </page>         
+                 
+        <page id="4" name="Skills" description="">
+		    <line style="list_bar" caption="Android" level="expert"/>
+			<line style="list_bar" caption="Java" level="experienced"/>
+        </page>         
+        <page id="5" name="Hobbies" description="">
+            <line style="list" caption="hiking" text=""/>
+			<line style="list" caption="films" text=""/>
+			<line style="list" caption="fittness" text=""/>
+        </page>     
+        <page id="6" name="Profiles" description="">
+		    <line style="link" caption="Facebook" text="facebook.com/bertalan.zsolt25"/>
+		    <line style="link" caption="StackOverFlow" text="stackoverflow.com/herrbert74"/>
+		    <line style="link" caption="LinkedIn" text="linkedin.com/bertalan.zsolt25"/>
+        </page>
+        <page id="7" name="Hobby Projects" description="">
+		    <line style="list" caption="OSMTrailMarks" text="An OpenStreetMap project that adds TrailMarks to OSM data on Garmin outputs."/>
+		    <line style="link" text="http://github.com/Herrbert74/OSMTrailMarks"/>
+		    <line style="list" caption="OSMCLCImport" text="An OpenStreetMap project helping the import of Corine Land Cover information."/>
+			<line style="link" text="http://github.com/Herrbert74/OSMCLCImport"/>
+        </page>
+        
+    </pages>
+</data>
