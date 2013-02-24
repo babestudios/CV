@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.herrbert74.cv.CVConstants;
 import com.herrbert74.cv.R;
 import com.herrbert74.cv.adapters.LineOfInformationAdapter;
 import com.herrbert74.cv.pojos.PageInfo;
+import com.herrbert74.cv.utils.Functions;
 
 public class PageInfoFragment extends Fragment implements CVConstants {
 	int mPosition;
@@ -28,6 +30,14 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		args.putInt("position", position);
 		args.putParcelable("pageinfo", pageInfo);
 		f.setArguments(args);
+		
+//		WindowManager wm = (WindowManager) CVApp.getContext().getSystemService(Context.WINDOW_SERVICE);
+//		Display display = wm.getDefaultDisplay();
+//		DisplayMetrics size = new DisplayMetrics();
+//		display.getMetrics(size);
+//		int width = size.widthPixels;
+//		float substraction = TypedValue
+//				.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, CVApp.getContext().getResources().getDisplayMetrics());
 
 		return f;
 	}
@@ -52,6 +62,11 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		LineOfInformationAdapter adapter = new LineOfInformationAdapter(c, mPageInfo.getLines());
 		listview.setAdapter(adapter);
 		lbl.setText(mPageInfo.getName());
+		
+		ImageView iv = (ImageView) v.findViewById(R.id.iv);
+		String packageName = CVApp.getContext().getPackageName();
+		int resID = CVApp.getContext().getResources().getIdentifier(BACKGROUNDS_ANDROID[mPosition], "drawable", packageName);
+		iv.setImageBitmap(Functions.decodeSampledBitmapFromResource(CVApp.getContext().getResources(), resID));
 		return v;
 	}
 }

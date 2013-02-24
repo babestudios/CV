@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themes">
+        <item>Android</item>
+        <item>Squares</item>
+        <item>Serious</item>
+        <item>Hamster</item>
+        <item>Cow</item>
+    </string-array>
+</resources>

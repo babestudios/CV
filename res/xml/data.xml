@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data>
-    <pages>
+    <pages theme="1">
         <page id="1" name="Basic Information" description="">
 			<picture image="" caption="Bertalan Zsolt" text="Jómagam"/>
             <line style="list" caption="Address" text="Hungary, Győr, Pátzay Pál utca 22."/>
