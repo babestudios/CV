@@ -9,16 +9,24 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.herrbert74.cv.CVConstants;
 import com.herrbert74.cv.fragments.PageInfoFragment;
 import com.herrbert74.cv.pojos.PageInfo;
+import com.viewpagerindicator.IconPagerAdapter;
 
-public class MainPagerAdapter extends FragmentStatePagerAdapter {
+public class MainPagerAdapter extends FragmentStatePagerAdapter implements CVConstants, IconPagerAdapter {
 
 	ArrayList<PageInfo> mPageInfoList;
+	int[] icons;
 	
-	public MainPagerAdapter(FragmentManager fm, ArrayList<PageInfo> pageInfoList) {
+	public MainPagerAdapter(FragmentManager fm, ArrayList<PageInfo> pageInfoList, int theme) {
 		super(fm);
 		mPageInfoList = pageInfoList;
+		if(theme == 0){
+			icons = ICONS_ANDROID;
+		}else{
+			icons = ICONS_SQUARES;
+		}
 	}
 
 	public int getCount() {
@@ -37,4 +45,9 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
         ((ViewPager) collection).removeView(view);
         view = null;
     }
+
+	@Override
+	public int getIconResId(int index) {
+		return icons[index % icons.length];
+	}
 }

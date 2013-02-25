@@ -36,7 +36,7 @@ public class XMLReader {
 					pageInfo.setDescription(xpp.getAttributeValue(null, "description"));
 				} else if (xpp.getName().equals("line")) {
 					
-					LineOfInformation line = new LineOfInformation(xpp.getAttributeValue(null, "style"), xpp.getAttributeValue(null, "image"), xpp.getAttributeValue(null, "caption"), xpp.getAttributeValue(null, "text"));
+					LineOfInformation line = new LineOfInformation(Integer.parseInt(xpp.getAttributeValue(null, "style")), xpp.getAttributeValue(null, "image"), xpp.getAttributeValue(null, "caption"), xpp.getAttributeValue(null, "text"), xpp.getAttributeValue(null, "level"));
 					lines.add(line);
 				}
 

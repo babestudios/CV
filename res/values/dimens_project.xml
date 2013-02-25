@@ -1,0 +1,8 @@
+<resources>
+
+    <!-- Main -->
+    <dimen name="wheel_width">420dp</dimen>
+    <dimen name="wheel_height">180dp</dimen>
+    
+    
+</resources>

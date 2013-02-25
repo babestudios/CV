@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Android" parent="Theme.Sherlock">
+        <item name="android:buttonStyle">@style/Button</item>
+        <!-- http://android-developers.blogspot.hu/2009/03/window-backgrounds-ui-speed.html -->
+        <item name="android:windowBackground">@drawable/background_android</item>
+    </style>
+    
+    <style name="Theme.Squares" parent="Theme.Android">
+        <item name="android:windowBackground">@drawable/background_squares</item>
+    </style>
+</resources>

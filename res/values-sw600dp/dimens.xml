@@ -1,8 +1,20 @@
 <resources>
 
-    <!--
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw600dp devices (e.g. 7" tablets) here.
-    -->
+    <!-- General -->
+    <dimen name="activity_horizontal_margin">32dp</dimen>
+    <dimen name="activity_vertical_margin">32dp</dimen>
+    <dimen name="widget_margin">12dp</dimen>
+	<!-- Buttons -->
+    <dimen name="button_width">420dp</dimen>
+    <dimen name="button_width_short">256dp</dimen>
+    <dimen name="button_width_fit_two">210dp</dimen>
+    <!-- Text sizes -->
+    <dimen name="text">32sp</dimen>
+    <dimen name="text_emphasised">40sp</dimen>
+    <dimen name="text_hint">20sp</dimen>
+    <dimen name="text_button">48sp</dimen>
+    <dimen name="text_H1">96sp</dimen>
+    <dimen name="text_H2">64sp</dimen>
+    <dimen name="text_H3">40sp</dimen>
 
 </resources>

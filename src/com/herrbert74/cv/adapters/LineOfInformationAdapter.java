@@ -1,5 +1,6 @@
 package com.herrbert74.cv.adapters;
 
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
@@ -23,8 +24,6 @@ public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> im
 		super(context, R.layout.adapter_loi_list, lines);
 		mContext = context;
 		mLines = lines;
-		//mFont_titles = Typeface.createFromAsset(context.getAssets(), TYPEFACE_DIALOG_TITLES );
-		//mFont_buttons = Typeface.createFromAsset(context.getAssets(), TYPEFACE_BUTTONS );
 	}
 
 	@Override
@@ -32,31 +31,31 @@ public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> im
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView;
 		LineOfInformation loi = mLines.get(position);
-		if (loi.getmStyle().equals("picture")) {
+		if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("picture")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);
 			cpn.setText(loi.getmCaption());
 			lbl.setText(loi.getmText());
-		} else if (loi.getmStyle().equals("list")) {
+		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);
 			cpn.setText(loi.getmCaption());
 			lbl.setText(loi.getmText());
-		} else if (loi.getmStyle().equals("detail")) {
+		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("detail")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);
 			cpn.setText(loi.getmCaption());
 			lbl.setText(loi.getmText());
-		} else if (loi.getmStyle().equals("link")) {
+		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);
 			cpn.setText(loi.getmCaption());
 			lbl.setText(loi.getmText());
-		} else if (loi.getmStyle().equals("list_bar")) {
+		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list_bar")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);

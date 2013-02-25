@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General -->
     <dimen name="widget_margin">6dp</dimen>
     <dimen name="widget_margin_double">12dp</dimen>
-    <dimen name="spinner_textsize">32sp</dimen>
+    
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+    <!-- Buttons -->
+    <dimen name="button_width">210dp</dimen>
+    <dimen name="button_width_short">128dp</dimen>
+    <dimen name="button_width_fit_two">96dp</dimen>
+    <!-- Text sizes -->
+    <dimen name="text">16sp</dimen>
+    <dimen name="text_emphasised">20sp</dimen>
+    <dimen name="text_hint">10sp</dimen>
+    <dimen name="text_button">24sp</dimen>
+    <dimen name="text_H1">48sp</dimen>
+    <dimen name="text_H2">32sp</dimen>
+    <dimen name="text_H3">20sp</dimen>
+	<dimen name="text_spinner">16sp</dimen>
 </resources>

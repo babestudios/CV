@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="wheel_width">256dp</dimen>
+    
+</resources>

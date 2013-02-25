@@ -1,48 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- <item name="android:spinnerItemStyle">@style/QuizteriaSpinnerItem</item> -->
-    <!--
-    <item name="android:spinnerStyle">@style/Widget.Spinner</item>
-    <style name="QuizteriaTheme" parent="android:Theme.Black.NoTitleBar.Fullscreen">
-    -->
-    <style name="QuizteriaTheme" parent="Theme.Sherlock">
-        <item name="android:buttonStyle">@style/Button</item>
-        <!-- http://android-developers.blogspot.hu/2009/03/window-backgrounds-ui-speed.html -->
-        <item name="android:windowBackground">@null</item>
-    </style>
-
     <style name="Text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">2dp</item>
-        <!-- cannot override margin with marginbottom! Other way works. -->
-        <item name="android:layout_marginBottom">2dp</item>
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingRight">2dp</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="Text.large">
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">@dimen/text</item>
+        <item name="android:gravity">left</item>
     </style>
 
     <style name="Text.H1">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginTop">6dp</item>
@@ -53,229 +25,65 @@
         <item name="android:paddingBottom">6dp</item>
         <item name="android:paddingLeft">6dp</item>
         <item name="android:paddingRight">6dp</item>
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">@dimen/text_H1</item>
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="Text.H1.large">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:textSize">96sp</item>
     </style>
 
     <style name="Text.H2">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:layout_marginBottom">6dp</item>
-        <item name="android:layout_marginLeft">6dp</item>
-        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">@dimen/text_H2</item>
     </style>
-
-    <style name="Text.H2.large">
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:layout_marginBottom">12dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:textSize">64sp</item>
-    </style>
-
+   
     <style name="Text.H3">
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:layout_marginBottom">6dp</item>
-        <item name="android:layout_marginLeft">6dp</item>
-        <item name="android:layout_marginRight">6dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:textSize">@dimen/text_H3</item>
     </style>
-
-    <style name="Text.H3.large">
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:layout_marginBottom">12dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:textSize">40sp</item>
-    </style>
-
+   
     <style name="Text.Emphasised">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="Text.Emphasised.large">
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">@dimen/text_emphasised</item>
     </style>
 
     <style name="Text.Hint">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="Text.Hint.large">
-        <item name="android:textSize">24sp</item>
-    </style>
-
-    <style name="Text.Stat">
-        <item name="android:paddingLeft">10dp</item>
-    </style>
-
-    <style name="Text.Stat.large">
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:textSize">32sp</item>
-    </style>
-
-    <style name="Text.Stat.Caption">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="Text.Stat.Caption.large">
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:textSize">40sp</item>
-    </style>
-
-    <style name="Text.Dialog">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_centerHorizontal">true</item>
-    </style>
-
-    <style name="Text.Dialog.large">
-        <item name="android:textSize">32sp</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_centerHorizontal">true</item>
-    </style>
-
-    <style name="Text.Dialog.Hint">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="Text.Dialog.Hint.large">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/text_hint</item>
     </style>
 
     <style name="Button" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/selector_button_general</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@drawable/selector_button_general_textcolor</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/text</item>
     </style>
 
-    <style name="Button.large">
-        <item name="android:textSize">32sp</item>
-    </style>
-
-    <style name="MainButton">
-        <item name="android:background">@drawable/selector_button_general</item>
+    <style name="Button.General">
         <item name="android:layout_width">140dp</item>
         <item name="android:layout_height">40dp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">16sp</item>
     </style>
-
-    <style name="MainButton.large">
-        <item name="android:layout_width">320dp</item>
-        <item name="android:layout_height">80dp</item>
-        <item name="android:textSize">32sp</item>
+    
+    <style name="Button.General.Main">
+        <item name="android:textSize">24sp</item>
     </style>
-
+    
     <style name="HorizontallyDistributedLL">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:orientation">vertical</item>
     </style>
-
-    <style name="DialogImageView">
-        <item name="android:layout_width">78dp</item>
-        <item name="android:layout_height">98dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_gravity">center</item>
-    </style>
-
-    <style name="DialogImageView.large">
-        <item name="android:layout_width">156dp</item>
-        <item name="android:layout_height">196dp</item>
-    </style>
-
-    <style name="DialogChampStartImageView">
-        <item name="android:layout_width">60dp</item>
-        <item name="android:layout_height">75dp</item>
-        <item name="android:layout_gravity">center</item>
-    </style>
-
-    <style name="DialogChampStartImageView.large">
-        <item name="android:layout_width">120dp</item>
-        <item name="android:layout_height">150dp</item>
-    </style>
-
-    <style name="AwardsName">
+    
+    <style name="TableRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:typeface">serif</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
     </style>
-
-    <style name="AwardsName.large">
-        <item name="android:textSize">48sp</item>
-    </style>
-
-    <style name="AwardsDescription">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:typeface">serif</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="AwardsDescription.large">
-        <item name="android:textSize">32sp</item>
-    </style>
-
-    <style name="AwardsDetail">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:typeface">serif</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="AwardsDetail.large">
-        <item name="android:textSize">24sp</item>
-    </style>
-    <!--
-    <style name="Widget.Spinner" parent="@android:style/Widget.Spinner">
-        <item name="android:background">@drawable/selector_dropdown</item>
-        <item name="android:clickable">true</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="Widget.Spinner.large" parent="Widget.Spinner">
-        <item name="android:textSize">48sp</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-                
-    <style name="QuizteriaSpinnerItem" parent="android:Widget.TextView.SpinnerItem">
-        <item name="android:textAppearance">@style/QuizteriaTextAppearanceSpinnerItem</item>
-    </style>
-
-    <style name="QuizteriaTextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textColor">#0af</item>
-    </style>
-    -->
 
 </resources>

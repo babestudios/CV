@@ -15,6 +15,14 @@ public class PageInfo implements Parcelable {
 		return 0;
 	}
 
+	public PageInfo(int mId, String mName, String mDescription, ArrayList<LineOfInformation> mLines) {
+		super();
+		this.mId = mId;
+		this.mName = mName;
+		this.mDescription = mDescription;
+		this.mLines = mLines;
+	}
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeInt(mId);
 		out.writeString(mName);
