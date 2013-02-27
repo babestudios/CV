@@ -17,11 +17,8 @@ public interface CVConstants {
 	public static final String[] CV_LINE_STYLES = { "list", "detail", "link", "picture", "list_bar", "" };
 
 	// Prefs files
-	public static final String PREFS_MAIN = "QuizheadsPrefs";
-	public static final String CHAMP_PREFS_FILENAME = "ChampPrefs";
-	public static final String STATS_PREFS_FILENAME = "StatPrefs";
-	public static final String AWARDS_PREFS_FILENAME = "AwardsPrefs";
-
+	public static final String PREFS_MAIN = "mainPrefs";
+	
 	// Databases
 	public static final String DATABASE_NAME = "quiz";
 	public static final int DATABASE_VERSION = 1;

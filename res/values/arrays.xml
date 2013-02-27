@@ -3,8 +3,5 @@
     <string-array name="themes">
         <item>Android</item>
         <item>Squares</item>
-        <item>Serious</item>
-        <item>Hamster</item>
-        <item>Cow</item>
     </string-array>
 </resources>

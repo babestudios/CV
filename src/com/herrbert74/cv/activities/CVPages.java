@@ -1,7 +1,6 @@
 package com.herrbert74.cv.activities;
 
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +22,7 @@ import com.herrbert74.cv.CVApp;
 import com.herrbert74.cv.CVConstants;
 import com.herrbert74.cv.R;
 import com.herrbert74.cv.adapters.MainPagerAdapter;
+import com.herrbert74.cv.dao.SharedPreferencesHelper;
 import com.herrbert74.cv.dao.WebRequests;
 import com.herrbert74.cv.dao.WebRequests.GetCVLinesListener;
 import com.herrbert74.cv.pojos.PageInfo;
@@ -37,7 +37,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	// Preferences
 	SharedPreferences settings;
-	Preferences prefs;
+	SharedPreferencesHelper prefs;
 
 	@ViewById
 	ViewPager pager;
@@ -52,13 +52,23 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	private int mTheme;
 
-	//Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
+	private int mRequestedCVID;
+	private int mRequestedCVNo;
+
+	// Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
 	private boolean isLoading = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		mTheme = getIntent().getIntExtra("theme", 0);
+		prefs = new SharedPreferencesHelper();
+		prefs.restorePreferences();
+
+		// If theme was changed, get it from intent. Otherwise, get it from sharedpreferences
+		mTheme = getIntent().getIntExtra("theme", prefs.theme);
+
+		mRequestedCVID = getIntent().getIntExtra("requested_cv_id", -1);
+		mRequestedCVNo = getIntent().getIntExtra("requested_cv_no", -1);
 
 		switch (mTheme) {
 		case 0:
@@ -69,8 +79,6 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 			break;
 		default:
 		}
-		// requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		super.onCreate(savedInstanceState);
 
 		/*try {
@@ -83,7 +91,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 			e.printStackTrace();
 		}*/
 
-		//mThemes = getResources().getStringArray(R.array.themes);
+		// mThemes = getResources().getStringArray(R.array.themes);
 
 		Context context = getSupportActionBar().getThemedContext();
 		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.themes, R.layout.sherlock_spinner_item);
@@ -91,16 +99,18 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
+		getSupportActionBar().setSelectedNavigationItem(mTheme);
 
 	}
 
 	@AfterViews
 	public void av() {
-		WebRequests.getCVLines(55676, CVPages.this, new GetCVLinesListener() {
+		boolean isWebRequest = mRequestedCVID == -1;
+		WebRequests.getCVLines(isWebRequest ? mRequestedCVNo : mRequestedCVID, CVPages.this, isWebRequest, mRequestedCVNo, new GetCVLinesListener() {
 
 			@Override
-			public void parsingFinished(ArrayList<PageInfo> to) {
-				mPageInfoList = to;
+			public void parsingFinished(ArrayList<PageInfo> cv) {
+				mPageInfoList = cv;
 				// Pager
 				adapter = new MainPagerAdapter(getSupportFragmentManager(), mPageInfoList, mTheme);
 				pager.setAdapter(adapter);

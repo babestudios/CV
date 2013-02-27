@@ -34,153 +34,154 @@ import android.net.NetworkInfo;
 
 import com.herrbert74.cv.CVConstants;
 
-	public class WebRequestHelper implements CVConstants{
-		public interface JSONParserListener
-		{
-			public void parsingFinished(Object array);
-			public void parsingFailed(Exception ex);
+public class WebRequestHelper implements CVConstants {
+	public interface JSONParserListener {
+		public void parsingFinished(Object array, String response);
+
+		public void parsingFailed(Exception ex);
+	}
+
+	private static HttpResponse startHTTPRequest(Context context, String _url, List<NameValuePair> list) throws ClientProtocolException,
+			IOException, Exception {
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+		if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting()) {
+			throw new Exception("Nincs internetkapcsolat!");
 		}
-		
-		private static HttpResponse startHTTPRequest(Context context, String _url, List<NameValuePair> list) throws ClientProtocolException, IOException, Exception
-		{
-			ConnectivityManager  connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);  
-	        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-	        
-	        if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting())
-	        {
-	        	throw new Exception("Nincs internetkapcsolat!");
-	        }
-	        
-			HttpResponse response = null;
-			
-	        HttpClient client = new DefaultHttpClient();
-	        HttpGet post = new HttpGet(_url);
-	        /*
-	        HttpPost post = new HttpPost(_url);
-	        post.setEntity(new StringEntity("body", HTTP.UTF_8));
-	        if (list != null) post.setEntity(new UrlEncodedFormEntity(list));*/
-	        response = client.execute(post);
-	        
-	        return response;
-		}
-		
-		private static ArrayList<JSONObject> jsonToArray(JSONArray array)
-		{
-			ArrayList<JSONObject> list = new ArrayList<JSONObject>();     
-			if (array != null) { 
-			   int len = array.length();
-			   for (int i=0;i<len;i++){ 
-			    try {
+
+		HttpResponse response = null;
+
+		HttpClient client = new DefaultHttpClient();
+		HttpGet post = new HttpGet(_url);
+		/*
+		HttpPost post = new HttpPost(_url);
+		post.setEntity(new StringEntity("body", HTTP.UTF_8));
+		if (list != null) post.setEntity(new UrlEncodedFormEntity(list));*/
+		response = client.execute(post);
+
+		return response;
+	}
+
+	private static ArrayList<JSONObject> jsonToArray(JSONArray array) {
+		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+		if (array != null) {
+			int len = array.length();
+			for (int i = 0; i < len; i++) {
+				try {
 					list.add((JSONObject) array.get(i));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			   } 
 			}
-			
-			return list;
 		}
-		
-		public static void parseArray(final Activity activity, final String _url, final List<NameValuePair> list, final JSONParserListener _listener)
-		{
-			final String request = (!_url.startsWith("http://") ? SERVER_DOMAIN + _url : _url);
-			
-			new Thread(new Runnable() {
 
-				@Override
-				public void run()
-				{
-					HttpResponse response;
+		return list;
+	}
+
+	public static void parseArray(final Activity activity, final String _url, final boolean isWebrequest, final int requestedcvno,
+			final List<NameValuePair> list, final JSONParserListener _listener) {
+		final String request = (!_url.startsWith("http://") ? SERVER_DOMAIN + _url : _url);
+		final SharedPreferencesHelper prefs = new SharedPreferencesHelper();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				HttpResponse response;
+				try {
+					BufferedReader reader;
 					try {
-						response = startHTTPRequest(activity, request, list);
-						
-						BufferedReader reader;
-						try
-						{
+						final JSONTokener tokener;
+						final String responseString;
+						if (isWebrequest) {
+							response = startHTTPRequest(activity, request, list);
 							reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 							StringBuilder builder = new StringBuilder();
 							for (String line = null; (line = reader.readLine()) != null;) {
-							    builder.append(line).append("\n");
+								builder.append(line).append("\n");
 							}
-							final JSONTokener tokener = new JSONTokener(builder.toString());
+							tokener = new JSONTokener(builder.toString());
 
-							activity.runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									Object finalResult = null;
-									try {
-										finalResult = tokener.nextValue();
-										if (finalResult instanceof JSONObject)
-											_listener.parsingFinished(finalResult);
-										else if (finalResult instanceof JSONArray)
-											_listener.parsingFinished((JSONArray)finalResult);
-										else
-										{
-											//if ((Boolean)finalResult == false)
-											//{
-												_listener.parsingFailed(new Exception("Command failed!"));
-											//}
-										}
-											
-									}
-									catch (JSONException ex)
-									{
-										ex.printStackTrace();
-									}
-								}
-							});
+							responseString = builder.toString();
+						} else {
+							String restoreCV = prefs.restoreCV(Integer.toString(prefs.getCVIDs()[requestedcvno]));
+							tokener = new JSONTokener(restoreCV);
+							responseString = restoreCV;
+
 						}
-						
-						catch (final Exception ex)
-						{
-							activity.runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									_listener.parsingFailed(ex);							
+						activity.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Object finalResult = null;
+								try {
+									parseJSON(_listener, tokener, responseString);
+								} catch (JSONException ex) {
+									ex.printStackTrace();
 								}
-								
-							});
-						}
+							}
+
+						});
 					}
+
 					catch (final Exception ex) {
 						activity.runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								_listener.parsingFailed(ex);							
+								_listener.parsingFailed(ex);
 							}
-							
+
 						});
 					}
-					
+				} catch (final Exception ex) {
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							_listener.parsingFailed(ex);
+						}
 
-					
+					});
 				}
-				
-			}).start();
+
+			}
+
+		}).start();
+	}
+
+	public static void parseJSON(final JSONParserListener _listener, final JSONTokener tokener, final String responseString)
+			throws JSONException {
+		Object finalResult;
+		finalResult = tokener.nextValue();
+		if (finalResult instanceof JSONObject)
+			_listener.parsingFinished(finalResult, responseString);
+		else if (finalResult instanceof JSONArray)
+			_listener.parsingFinished((JSONArray) finalResult, responseString);
+		else {
+			_listener.parsingFailed(new Exception("Command failed!"));
 		}
-		
-	    public static Bitmap downloadImage(String fileUrl)
-	    {
-	    	if (fileUrl == null || fileUrl.equals("") || fileUrl.equals("no-pic.png")) return null;
-	    	
-	        URL myFileUrl =null;          
-	        try {
-	             myFileUrl= new URL(fileUrl);
-	        } catch (MalformedURLException e) {
-	             e.printStackTrace();
-	        }
-	        try {
-	             HttpURLConnection conn = (HttpURLConnection)myFileUrl.openConnection();
-	             conn.setDoInput(true);
-	             conn.connect();
-	             InputStream is = conn.getInputStream();
-	             
-	             return BitmapFactory.decodeStream(is);
-	        } catch (Exception e) {
-	             e.printStackTrace();
-	        }
-	        
-	        return null;
-	   }
-	
+	}
+
+	public static Bitmap downloadImage(String fileUrl) {
+		if (fileUrl == null || fileUrl.equals("") || fileUrl.equals("no-pic.png"))
+			return null;
+
+		URL myFileUrl = null;
+		try {
+			myFileUrl = new URL(fileUrl);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream is = conn.getInputStream();
+
+			return BitmapFactory.decodeStream(is);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 }

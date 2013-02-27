@@ -8,9 +8,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.herrbert74.cv.CVApp;
 import com.herrbert74.cv.CVConstants;
 import com.herrbert74.cv.pojos.LineOfInformation;
 import com.herrbert74.cv.pojos.PageInfo;
@@ -21,13 +23,15 @@ public class WebRequests implements CVConstants {
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
-	public static void getCVLines(final int id, Context context, final GetCVLinesListener listener) {
+	public static void getCVLines(final int id, Context context, boolean isWebrequest, int requestedcvno, final GetCVLinesListener listener) {
 
 		final Context ctx = context;
 		WebRequestHelper.JSONParserListener jsonparserListener = new WebRequestHelper.JSONParserListener() {
 
 			@Override
-			public void parsingFinished(Object array) {
+			public void parsingFinished(Object array, String response) {
+
+				// build object array from json string
 				JSONArray jArray = (JSONArray) array;
 				ArrayList<PageInfo> pageInfos = new ArrayList<PageInfo>();
 
@@ -48,6 +52,15 @@ public class WebRequests implements CVConstants {
 							String caption = json_loi.getString("caption");
 							String text = json_loi.getString("line_text");
 							String level = json_loi.getString("level");
+							// Save response to preferences
+							if (caption.equals("name")) {
+								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
+								if (!prefs.containCVID(id)) {
+									prefs.saveString(Integer.toString(id), response);
+									prefs.appendCVID(id);
+									prefs.appendCVName(text);
+								}
+							}
 							LineOfInformation loi = new LineOfInformation(style, image, caption, text, level);
 							lines.add(loi);
 						}
@@ -59,7 +72,7 @@ public class WebRequests implements CVConstants {
 					}
 				}
 				listener.parsingFinished(pageInfos);
-}
+			}
 
 			@Override
 			public void parsingFailed(Exception ex) {
@@ -68,7 +81,7 @@ public class WebRequests implements CVConstants {
 		};
 
 		String url = String.format(URL_PATH_CVLINES, id);
-		WebRequestHelper.parseArray((Activity) context, url, null, jsonparserListener);
+		WebRequestHelper.parseArray((Activity) context, url, isWebrequest, requestedcvno, null, jsonparserListener);
 
 	}
 }
