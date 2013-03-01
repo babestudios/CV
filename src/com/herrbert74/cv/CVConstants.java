@@ -14,7 +14,7 @@ public interface CVConstants {
 		R.drawable.selector_ipi_squares_06, R.drawable.selector_ipi_squares_07 };
 
 	// Style array
-	public static final String[] CV_LINE_STYLES = { "list", "detail", "link", "picture", "list_bar", "" };
+	public static final String[] CV_LINE_STYLES = { "", "list1", "list2", "list3", "header", "image", "list_bar", "link1" , "link2"};
 
 	// Prefs files
 	public static final String PREFS_MAIN = "mainPrefs";

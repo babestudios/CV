@@ -23,7 +23,7 @@ public class WebRequests implements CVConstants {
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
-	public static void getCVLines(final int id, Context context, boolean isWebrequest, int requestedcvno, final GetCVLinesListener listener) {
+	public static void getCVLines(final int id, Context context, final boolean isWebrequest, int requestedcvno, final GetCVLinesListener listener) {
 
 		final Context ctx = context;
 		WebRequestHelper.JSONParserListener jsonparserListener = new WebRequestHelper.JSONParserListener() {
@@ -48,20 +48,20 @@ public class WebRequests implements CVConstants {
 						for (int i2 = 0; i2 < page_lines.length(); i2++) {
 							JSONObject json_loi = page_lines.getJSONObject(i2);
 							int style = Integer.parseInt(json_loi.getString("id_style"));
-							String image = json_loi.getString("image");
 							String caption = json_loi.getString("caption");
 							String text = json_loi.getString("line_text");
-							String level = json_loi.getString("level");
+							String detail = json_loi.getString("detail");
+							String link = json_loi.getString("link");
 							// Save response to preferences
 							if (caption.equals("name")) {
 								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
-								if (!prefs.containCVID(id)) {
+								if (isWebrequest && !prefs.containCVID(id)) {
 									prefs.saveString(Integer.toString(id), response);
 									prefs.appendCVID(id);
 									prefs.appendCVName(text);
 								}
 							}
-							LineOfInformation loi = new LineOfInformation(style, image, caption, text, level);
+							LineOfInformation loi = new LineOfInformation(style, caption, text, detail, link);
 							lines.add(loi);
 						}
 

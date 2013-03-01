@@ -10,10 +10,17 @@
         android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@+id/lbl"
+        android:id="@+id/lbl_text"
         style="@style/Text"
         android:layout_below="@id/cpn"
         android:layout_marginLeft="12dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentRight="true" />
+    
+    <TextView
+        android:id="@+id/lbl_detail"
+        style="@style/Text"
+        android:layout_below="@id/lbl_text"
+        android:layout_marginLeft="12dp"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

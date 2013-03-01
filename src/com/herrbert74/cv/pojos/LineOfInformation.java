@@ -5,33 +5,34 @@ import android.os.Parcelable;
 
 public class LineOfInformation implements Parcelable {
 	int mStyle;
-	String mImage;
 	String mCaption;
 	String mText;
-	String mLevel;
-
-	public LineOfInformation(int style, String image, String caption, String text, String level) {
+	String mDetail;
+	String mLink;
+	
+	public LineOfInformation(int style, String caption, String text, String detail, String link) {
 		mStyle = style;
-		mImage = image;
 		mCaption = caption;
 		mText = text;
-		mLevel = level;
+		mDetail = detail;
+		mLink = link;
 	}
 
 	public LineOfInformation(Parcel in) {
 		mStyle = in.readInt();
-		mImage = in.readString();
 		mCaption = in.readString();
 		mText = in.readString();
-		mLevel = in.readString();
+		mDetail = in.readString();
+		mLink = in.readString();
+			
 	}
 
-	public String getImage() {
-		return mImage;
+	public String getLink() {
+		return mLink;
 	}
 
-	public void setImage(String image) {
-		this.mImage = image;
+	public void setLink(String link) {
+		this.mLink = link;
 	}
 
 	public int getmStyle() {
@@ -54,16 +55,16 @@ public class LineOfInformation implements Parcelable {
 		return mText;
 	}
 
-	public String getmLevel() {
-		return mLevel;
+	public String getmDetail() {
+		return mDetail;
 	}
 
 	public void setmText(String mText) {
 		this.mText = mText;
 	}
 	
-	public void setmLevel(String level) {
-		this.mLevel = level;
+	public void setmDetail(String detail) {
+		this.mDetail = detail;
 	}
 
 	@Override
@@ -75,9 +76,10 @@ public class LineOfInformation implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(mStyle);
 		dest.writeString(mCaption);
-		dest.writeString(mImage);
 		dest.writeString(mText);
-		dest.writeString(mLevel);
+		dest.writeString(mDetail);
+		dest.writeString(mLink);
+		
 	}
 
 	public static final Parcelable.Creator<LineOfInformation> CREATOR = new Parcelable.Creator<LineOfInformation>() {

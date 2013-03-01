@@ -3,8 +3,6 @@ package com.herrbert74.cv.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONTokener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -26,7 +25,6 @@ import com.herrbert74.cv.CVApp;
 import com.herrbert74.cv.CVConstants;
 import com.herrbert74.cv.R;
 import com.herrbert74.cv.dao.SharedPreferencesHelper;
-import com.herrbert74.cv.dao.WebRequestHelper;
 
 @EActivity(R.layout.activity_main)
 public class MainCV extends SherlockFragmentActivity implements CVConstants, ActionBar.OnNavigationListener {
@@ -44,6 +42,8 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 
 	// Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
 	private boolean isLoading = true;
+	// Needed for don't trigger load spinner(start cv activity)
+	private boolean isLoadingSpinner = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +82,17 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
-				intent.putExtra("requested_cv_id", Integer.parseInt(txt_fill.getText().toString()));
-				startActivity(intent);
-				finish();
+
+				String requested_cv_id = txt_fill.getText().toString();
+				if (requested_cv_id.length() > 0) {
+					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
+
+					intent.putExtra("requested_cv_id", Integer.parseInt(requested_cv_id));
+					startActivity(intent);
+					finish();
+				} else {
+					Toast.makeText(MainCV.this, getResources().getString(R.string.main_empty_code), Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -96,17 +103,20 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				//Fetch the cv from preferences instead of the web
-				Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
-				intent.putExtra("requested_cv_no", arg2);
-				startActivity(intent);
-				finish();
-				
+				if (isLoadingSpinner) {
+					isLoadingSpinner = false;
+				} else if (arg2 > 0) {
+					// Fetch the cv from preferences instead of the web
+					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
+					intent.putExtra("requested_cv_no", arg2 - 1);
+					startActivity(intent);
+					finish();
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
+
 			}
 		});
 	}
@@ -116,6 +126,7 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 		List<String> list = new ArrayList<String>();
 		int[] cviDs = prefs.getCVIDs();
 		String[] cvNames = prefs.getCVNames();
+		list.add(getResources().getString(R.string.main_choose_one));
 		for (int index = 0; index < cviDs.length; index++) {
 			list.add(Integer.toString(cviDs[index]) + " " + cvNames[index]);
 		}

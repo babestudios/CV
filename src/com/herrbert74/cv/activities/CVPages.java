@@ -52,7 +52,9 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	private int mTheme;
 
+	//Requested id from the web
 	private int mRequestedCVID;
+	//Requested id to load from sharedpreferences
 	private int mRequestedCVNo;
 
 	// Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
@@ -63,7 +65,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		prefs = new SharedPreferencesHelper();
 		prefs.restorePreferences();
-
+		
 		// If theme was changed, get it from intent. Otherwise, get it from sharedpreferences
 		mTheme = getIntent().getIntExtra("theme", prefs.theme);
 
@@ -105,8 +107,8 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	@AfterViews
 	public void av() {
-		boolean isWebRequest = mRequestedCVID == -1;
-		WebRequests.getCVLines(isWebRequest ? mRequestedCVNo : mRequestedCVID, CVPages.this, isWebRequest, mRequestedCVNo, new GetCVLinesListener() {
+		boolean isWebRequest = mRequestedCVID > -1;
+		WebRequests.getCVLines(isWebRequest ? mRequestedCVID : mRequestedCVNo, CVPages.this, isWebRequest, mRequestedCVNo, new GetCVLinesListener() {
 
 			@Override
 			public void parsingFinished(ArrayList<PageInfo> cv) {

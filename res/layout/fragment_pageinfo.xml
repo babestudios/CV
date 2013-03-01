@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/widget_margin_double"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/hello_world"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitEnd"
         android:src="@null" />
 

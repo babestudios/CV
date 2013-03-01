@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-     <string name="app_name">CV</string>
-    <string name="title_activity_main2">MainActivity</string>
+    <string name="app_name">CV</string>
     <string name="menu_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main_cv">Main</string>
-    <string name="title_activity_cvpages">CV</string>
+    <string name="title_activity_main_cv">Main Screen</string>
+    <string name="title_activity_cvpages">CV Pages</string>
     <string name="action_settings">Settings</string>
     <!-- Main -->
     <string name="main_fill_code">Fill this field with a CV code:</string>
     <string name="main_go">Go!</string>
     <string name="main_load_code">OR load previous codes</string>
+    <string name="main_empty_code">Field is empty</string>
+    <string name="main_choose_one">Choose one!</string>
 
 </resources>
