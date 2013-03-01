@@ -5,7 +5,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.util.Linkify;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,27 +60,42 @@ public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> im
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			cpn.setText(loi.getmCaption());
 		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link1")) {
-			rowView = inflater.inflate(R.layout.adapter_loi_link1, parent, false);
+			rowView = inflater.inflate(R.layout.adapter_loi_link2, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
-			TextView lbl = (TextView) rowView.findViewById(R.id.lbl);
-			// Linkify.addLinks(lbl, Linkify.ALL);
+			TextView lbl_link = (TextView) rowView.findViewById(R.id.lbl_link);
+			//lbl_link.setAutoLinkMask(Linkify.WEB_URLS);
+			final String str = lbl_link.getText().toString();
+			/*lbl_link.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					CVApp.getContext().startActivity(i);
+					
+				}
+			});*/
 			cpn.setText(loi.getmCaption());
-			lbl.setText(loi.getLink());
+			SpannableString content = new SpannableString(loi.getLink());
+			content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+			lbl_link.setText(loi.getLink());
 		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link2")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_link1, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_detail = (TextView) rowView.findViewById(R.id.lbl_detail);
 			TextView lbl_link = (TextView) rowView.findViewById(R.id.lbl_link);
 			// Linkify.addLinks(lbl, Linkify.ALL);
+			
 			cpn.setText(loi.getmCaption());
 			lbl_detail.setText(loi.getmDetail());
 			lbl_link.setText(loi.getLink());
 		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list_bar")) {
-			rowView = inflater.inflate(R.layout.adapter_loi_list3, parent, false);
+			rowView = inflater.inflate(R.layout.adapter_loi_list2, parent, false);
+			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
-			TextView lbl_detail = (TextView) rowView.findViewById(R.id.lbl_detail);
-			lbl_text.setText(loi.getmText());
-			lbl_detail.setText(loi.getmDetail());
+			cpn.setText(loi.getmText());
+			lbl_text.setText(loi.getmDetail());
+			
 		} else {
 			rowView = inflater.inflate(R.layout.adapter_loi_list3, parent, false);
 		}

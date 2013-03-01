@@ -1,12 +1,17 @@
 package com.herrbert74.cv.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,14 +35,14 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		args.putInt("position", position);
 		args.putParcelable("pageinfo", pageInfo);
 		f.setArguments(args);
-		
-//		WindowManager wm = (WindowManager) CVApp.getContext().getSystemService(Context.WINDOW_SERVICE);
-//		Display display = wm.getDefaultDisplay();
-//		DisplayMetrics size = new DisplayMetrics();
-//		display.getMetrics(size);
-//		int width = size.widthPixels;
-//		float substraction = TypedValue
-//				.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, CVApp.getContext().getResources().getDisplayMetrics());
+
+		// WindowManager wm = (WindowManager) CVApp.getContext().getSystemService(Context.WINDOW_SERVICE);
+		// Display display = wm.getDefaultDisplay();
+		// DisplayMetrics size = new DisplayMetrics();
+		// display.getMetrics(size);
+		// int width = size.widthPixels;
+		// float substraction = TypedValue
+		// .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, CVApp.getContext().getResources().getDisplayMetrics());
 
 		return f;
 	}
@@ -58,6 +63,24 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		lbl.setTypeface(CVApp.getFontHeaders());
 		ListView listview = (ListView) v.findViewById(R.id.listview);
 		
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				try{
+					TextView lbl_link = (TextView) arg1.findViewById(R.id.lbl_link);
+					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(lbl_link.getText().toString()));
+					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					CVApp.getContext().startActivity(i);
+					getActivity().finish();
+				}catch(Exception e){}
+				
+				
+				Log.d("cv", Integer.toString(arg2));
+				
+			}
+		});
+		
 		Context c = CVApp.getContext();
 		LineOfInformationAdapter adapter = new LineOfInformationAdapter(c, mPageInfo.getLines());
 		listview.setAdapter(adapter);
@@ -70,4 +93,3 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		return v;
 	}
 }
-

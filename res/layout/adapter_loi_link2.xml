@@ -7,14 +7,23 @@
         android:id="@+id/cpn"
         style="@style/Text.Emphasised"
         android:layout_width="match_parent"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/widget_margin" />
 
     <TextView
-        android:id="@+id/lbl"
+        android:id="@+id/lbl_detail"
         style="@style/Text"
-       	android:autoLink="web"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/cpn"
-        android:layout_marginLeft="12dp"
-        android:layout_alignParentRight="true" />
+        android:layout_marginRight="@dimen/widget_margin" />
+    <!-- android:autoLink="web" -->
+
+    <TextView
+        android:id="@+id/lbl_link"
+        style="@style/Text"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/lbl_detail"
+        android:layout_marginRight="@dimen/widget_margin"
+        android:textColor="@color/holo_blue" />
 
 </RelativeLayout>
