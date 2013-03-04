@@ -1,4 +1,4 @@
-package com.herrbert74.cv.fragments;
+package com.herrbert74.cvpresenter.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,18 +16,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.herrbert74.cv.CVApp;
-import com.herrbert74.cv.CVConstants;
-import com.herrbert74.cv.R;
-import com.herrbert74.cv.adapters.LineOfInformationAdapter;
-import com.herrbert74.cv.pojos.PageInfo;
-import com.herrbert74.cv.utils.Functions;
+import com.herrbert74.cvpresenter.CVApp;
+import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.R;
+import com.herrbert74.cvpresenter.adapters.LineOfInformationAdapter;
+import com.herrbert74.cvpresenter.pojos.PageInfo;
 
 public class PageInfoFragment extends Fragment implements CVConstants {
+	
 	int mPosition;
 	String mTitle;
 	Typeface mFont_buttons;
 	static PageInfo mPageInfo;
+	ImageView iv;
 
 	public static PageInfoFragment newInstance(int position, PageInfo pageInfo) {
 		PageInfoFragment f = new PageInfoFragment();
@@ -72,7 +73,6 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(lbl_link.getText().toString()));
 					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					CVApp.getContext().startActivity(i);
-					getActivity().finish();
 				}catch(Exception e){}
 				
 				
@@ -86,10 +86,12 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		listview.setAdapter(adapter);
 		lbl.setText(mPageInfo.getName());
 		
-		ImageView iv = (ImageView) v.findViewById(R.id.iv);
-		String packageName = CVApp.getContext().getPackageName();
-		int resID = CVApp.getContext().getResources().getIdentifier(BACKGROUNDS_ANDROID[mPosition], "drawable", packageName);
-		iv.setImageBitmap(Functions.decodeSampledBitmapFromResource(CVApp.getContext().getResources(), resID));
+		iv = (ImageView) v.findViewById(R.id.iv);
 		return v;
 	}
+	public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final int resID = BACKGROUNDS_ANDROID[mPosition];
+        iv.setImageResource(resID);
+    }
 }

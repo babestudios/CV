@@ -1,4 +1,4 @@
-package com.herrbert74.cv;
+package com.herrbert74.cvpresenter;
 
 import android.app.Application;
 import android.content.Context;

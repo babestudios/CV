@@ -1,10 +1,10 @@
-package com.herrbert74.cv;
+package com.herrbert74.cvpresenter;
 
 public interface CVConstants {
 
 	// Android backgrounds
-	public static final String[] BACKGROUNDS_ANDROID = { "android_basic", "android_schools", "android_experience", "android_profiles",
-			"android_hobbyprojects", "android_hobbies", "android_skills" };
+	public static final int[] BACKGROUNDS_ANDROID = new int[] { R.drawable.android_basic, R.drawable.android_schools, R.drawable.android_experience, R.drawable.android_profiles,
+			R.drawable.android_hobbyprojects, R.drawable.android_hobbies, R.drawable.android_skills };
 
 	public static final int[] ICONS_ANDROID = new int[] { R.drawable.selector_ipi_android_01, R.drawable.selector_ipi_android_02,
 			R.drawable.selector_ipi_android_03, R.drawable.selector_ipi_android_04, R.drawable.selector_ipi_android_05,

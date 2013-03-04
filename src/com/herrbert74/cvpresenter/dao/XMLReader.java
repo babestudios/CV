@@ -1,4 +1,4 @@
-package com.herrbert74.cv.dao;
+package com.herrbert74.cvpresenter.dao;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 
-import com.herrbert74.cv.R;
-import com.herrbert74.cv.pojos.LineOfInformation;
-import com.herrbert74.cv.pojos.PageInfo;
+import com.herrbert74.cvpresenter.R;
+import com.herrbert74.cvpresenter.pojos.LineOfInformation;
+import com.herrbert74.cvpresenter.pojos.PageInfo;
 
 public class XMLReader {
 
@@ -36,7 +36,7 @@ public class XMLReader {
 					pageInfo.setDescription(xpp.getAttributeValue(null, "description"));
 				} else if (xpp.getName().equals("line")) {
 					
-					LineOfInformation line = new LineOfInformation(Integer.parseInt(xpp.getAttributeValue(null, "style")), xpp.getAttributeValue(null, "image"), xpp.getAttributeValue(null, "caption"), xpp.getAttributeValue(null, "text"), xpp.getAttributeValue(null, "level"));
+					LineOfInformation line = new LineOfInformation(Integer.parseInt(xpp.getAttributeValue(null, "id_line")),Integer.parseInt(xpp.getAttributeValue(null, "style")), xpp.getAttributeValue(null, "image"), xpp.getAttributeValue(null, "caption"), xpp.getAttributeValue(null, "text"), xpp.getAttributeValue(null, "level"));
 					lines.add(line);
 				}
 

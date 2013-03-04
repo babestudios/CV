@@ -1,16 +1,18 @@
-package com.herrbert74.cv.pojos;
+package com.herrbert74.cvpresenter.pojos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class LineOfInformation implements Parcelable {
+public class LineOfInformation implements Parcelable, Comparable<LineOfInformation> {
+	int mId_line;
 	int mStyle;
 	String mCaption;
 	String mText;
 	String mDetail;
 	String mLink;
 	
-	public LineOfInformation(int style, String caption, String text, String detail, String link) {
+	public LineOfInformation(int id_line, int style, String caption, String text, String detail, String link) {
+		mId_line = id_line;
 		mStyle = style;
 		mCaption = caption;
 		mText = text;
@@ -19,12 +21,20 @@ public class LineOfInformation implements Parcelable {
 	}
 
 	public LineOfInformation(Parcel in) {
+		mId_line = in.readInt();
 		mStyle = in.readInt();
 		mCaption = in.readString();
 		mText = in.readString();
 		mDetail = in.readString();
-		mLink = in.readString();
-			
+		mLink = in.readString();		
+	}
+
+	public int getmId_line() {
+		return mId_line;
+	}
+
+	public void setmId_line(int mId_line) {
+		this.mId_line = mId_line;
 	}
 
 	public String getLink() {
@@ -74,6 +84,7 @@ public class LineOfInformation implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(mId_line);
 		dest.writeInt(mStyle);
 		dest.writeString(mCaption);
 		dest.writeString(mText);
@@ -91,4 +102,9 @@ public class LineOfInformation implements Parcelable {
 			return new LineOfInformation[size];
 		}
 	};
+
+	@Override
+	public int compareTo(LineOfInformation another) {
+		return this.getmId_line() - another.getmId_line();
+	}
 }

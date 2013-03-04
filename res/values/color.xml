@@ -2,5 +2,13 @@
 <resources>
 
     <color name="holo_blue">#00ddff</color>
+    <color name="skill_beginner">#007700</color>
+    <color name="skill_beginner_center">#00ff00</color>
+    <color name="skill_intermediate">#007777</color>
+    <color name="skill_intermediate_center">#00ffff</color>
+    <color name="skill_advanced">#774400</color>
+    <color name="skill_advanced_center">#ff7700</color>
+    <color name="skill_expert">#770000</color>
+    <color name="skill_expert_center">#ff0000</color>
 
 </resources>

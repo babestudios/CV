@@ -1,8 +1,16 @@
 <resources>
 
     <!-- Main -->
-    <dimen name="wheel_width">420dp</dimen>
-    <dimen name="wheel_height">180dp</dimen>
-    
-    
+    <dimen name="list_bar_width_expert">96dp</dimen>
+    <dimen name="list_bar_width_advanced">72dp</dimen>
+    <dimen name="list_bar_width_intermediate">48dp</dimen>
+    <dimen name="list_bar_width_beginner">24dp</dimen>
+    <dimen name="list_bar_margin_expert">6dp</dimen>
+    <dimen name="list_bar_margin_advanced">30dp</dimen>
+    <dimen name="list_bar_margin_intermediate">54dp</dimen>
+    <dimen name="list_bar_margin_beginner">78dp</dimen>
+    <dimen name="list_bar_height">24dp</dimen>
+    <dimen name="profile_image_height">96dp</dimen>
+    <dimen name="profile_image_width">96dp</dimen>
+
 </resources>

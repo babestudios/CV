@@ -1,11 +1,11 @@
-package com.herrbert74.cv.dao;
+package com.herrbert74.cvpresenter.dao;
 
 import java.util.Set;
 
 import android.content.SharedPreferences;
 
-import com.herrbert74.cv.CVApp;
-import com.herrbert74.cv.CVConstants;
+import com.herrbert74.cvpresenter.CVApp;
+import com.herrbert74.cvpresenter.CVConstants;
 
 public class SharedPreferencesHelper implements CVConstants {
 

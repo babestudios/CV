@@ -1,4 +1,4 @@
-package com.herrbert74.cv.adapters;
+package com.herrbert74.cvpresenter.adapters;
 
 import java.util.ArrayList;
 
@@ -9,9 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
-import com.herrbert74.cv.CVConstants;
-import com.herrbert74.cv.fragments.PageInfoFragment;
-import com.herrbert74.cv.pojos.PageInfo;
+import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.fragments.PageInfoFragment;
+import com.herrbert74.cvpresenter.pojos.PageInfo;
 import com.viewpagerindicator.IconPagerAdapter;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter implements CVConstants, IconPagerAdapter {

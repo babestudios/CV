@@ -1,4 +1,4 @@
-package com.herrbert74.cv.utils;
+package com.herrbert74.cvpresenter.utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

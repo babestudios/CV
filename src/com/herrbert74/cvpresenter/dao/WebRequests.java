@@ -1,4 +1,4 @@
-package com.herrbert74.cv.dao;
+package com.herrbert74.cvpresenter.dao;
 
 import java.util.ArrayList;
 
@@ -12,10 +12,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.herrbert74.cv.CVApp;
-import com.herrbert74.cv.CVConstants;
-import com.herrbert74.cv.pojos.LineOfInformation;
-import com.herrbert74.cv.pojos.PageInfo;
+import com.herrbert74.cvpresenter.CVApp;
+import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.pojos.LineOfInformation;
+import com.herrbert74.cvpresenter.pojos.PageInfo;
 
 public class WebRequests implements CVConstants {
 
@@ -23,7 +23,8 @@ public class WebRequests implements CVConstants {
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
-	public static void getCVLines(final int id, Context context, final boolean isWebrequest, int requestedcvno, final GetCVLinesListener listener) {
+	public static void getCVLines(final int id, Context context, final boolean isWebrequest, int requestedcvno,
+			final GetCVLinesListener listener) {
 
 		final Context ctx = context;
 		WebRequestHelper.JSONParserListener jsonparserListener = new WebRequestHelper.JSONParserListener() {
@@ -47,6 +48,7 @@ public class WebRequests implements CVConstants {
 
 						for (int i2 = 0; i2 < page_lines.length(); i2++) {
 							JSONObject json_loi = page_lines.getJSONObject(i2);
+							int id_line = Integer.parseInt(json_loi.getString("id_line"));
 							int style = Integer.parseInt(json_loi.getString("id_style"));
 							String caption = json_loi.getString("caption");
 							String text = json_loi.getString("line_text");
@@ -55,13 +57,15 @@ public class WebRequests implements CVConstants {
 							// Save response to preferences
 							if (caption.equals("name")) {
 								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
-								if (isWebrequest && !prefs.containCVID(id)) {
+								if (isWebrequest) {
 									prefs.saveString(Integer.toString(id), response);
-									prefs.appendCVID(id);
-									prefs.appendCVName(text);
+									if (!prefs.containCVID(id)) {
+										prefs.appendCVID(id);
+										prefs.appendCVName(text);
+									}
 								}
 							}
-							LineOfInformation loi = new LineOfInformation(style, caption, text, detail, link);
+							LineOfInformation loi = new LineOfInformation(id_line, style, caption, text, detail, link);
 							lines.add(loi);
 						}
 

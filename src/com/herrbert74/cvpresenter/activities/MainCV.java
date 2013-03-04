@@ -1,4 +1,4 @@
-package com.herrbert74.cv.activities;
+package com.herrbert74.cvpresenter.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,10 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.herrbert74.cv.CVApp;
-import com.herrbert74.cv.CVConstants;
-import com.herrbert74.cv.R;
-import com.herrbert74.cv.dao.SharedPreferencesHelper;
+import com.herrbert74.cvpresenter.CVApp;
+import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.R;
+import com.herrbert74.cvpresenter.dao.SharedPreferencesHelper;
 
 @EActivity(R.layout.activity_main)
 public class MainCV extends SherlockFragmentActivity implements CVConstants, ActionBar.OnNavigationListener {
@@ -86,7 +86,7 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 				String requested_cv_id = txt_fill.getText().toString();
 				if (requested_cv_id.length() > 0) {
 					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
-
+					intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
 					intent.putExtra("requested_cv_id", Integer.parseInt(requested_cv_id));
 					startActivity(intent);
 					finish();
@@ -108,6 +108,7 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 				} else if (arg2 > 0) {
 					// Fetch the cv from preferences instead of the web
 					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
+					intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
 					intent.putExtra("requested_cv_no", arg2 - 1);
 					startActivity(intent);
 					finish();

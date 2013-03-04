@@ -1,4 +1,4 @@
-package com.herrbert74.cv.activities;
+package com.herrbert74.cvpresenter.activities;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,14 +18,14 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.herrbert74.cv.CVApp;
-import com.herrbert74.cv.CVConstants;
-import com.herrbert74.cv.R;
-import com.herrbert74.cv.adapters.MainPagerAdapter;
-import com.herrbert74.cv.dao.SharedPreferencesHelper;
-import com.herrbert74.cv.dao.WebRequests;
-import com.herrbert74.cv.dao.WebRequests.GetCVLinesListener;
-import com.herrbert74.cv.pojos.PageInfo;
+import com.herrbert74.cvpresenter.CVApp;
+import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.R;
+import com.herrbert74.cvpresenter.adapters.MainPagerAdapter;
+import com.herrbert74.cvpresenter.dao.SharedPreferencesHelper;
+import com.herrbert74.cvpresenter.dao.WebRequests;
+import com.herrbert74.cvpresenter.dao.WebRequests.GetCVLinesListener;
+import com.herrbert74.cvpresenter.pojos.PageInfo;
 import com.viewpagerindicator.IconPageIndicator;
 
 @EActivity(R.layout.activity_cvpages)
@@ -119,6 +118,10 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 				pager.setAdapter(adapter);
 				indicator.setViewPager(pager);
 				indicator.setOnPageChangeListener(new MyPageChangeListener());
+				//If case of a web request save CVNo in member. It's used at theme changing (we don't need to send web request again)
+				if(mRequestedCVNo == -1){
+					mRequestedCVNo = prefs.getCVIDs().length - 1;
+				}
 			}
 		});
 	}
@@ -141,6 +144,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		} else {
 			Intent intent = new Intent(this, CVPages_.class);
 			intent.putExtra("theme", itemPosition);
+			intent.putExtra("requested_cv_no", mRequestedCVNo);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
@@ -152,6 +156,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 	public void onBackPressed() {
 		super.onBackPressed();
 		Intent intent = new Intent(CVApp.getContext(), MainCV_.class);
+		intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
 		startActivity(intent);
 		finish();
 	}

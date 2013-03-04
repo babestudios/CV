@@ -1,4 +1,4 @@
-package com.herrbert74.cv.dao;
+package com.herrbert74.cvpresenter.dao;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.herrbert74.cv.CVConstants;
+import com.herrbert74.cvpresenter.CVConstants;
 
 public class WebRequestHelper implements CVConstants {
 	public interface JSONParserListener {

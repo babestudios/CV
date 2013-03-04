@@ -1,6 +1,7 @@
-package com.herrbert74.cv.pojos;
+package com.herrbert74.cvpresenter.pojos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,6 +22,7 @@ public class PageInfo implements Parcelable {
 		this.mName = mName;
 		this.mDescription = mDescription;
 		this.mLines = mLines;
+		Collections.sort(mLines);
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -52,6 +54,7 @@ public class PageInfo implements Parcelable {
 		mName = in.readString();
 		mDescription = in.readString();
 		in.readList(mLines, null);
+		Collections.sort(mLines);
 	}
 
 	public int getId() {
@@ -68,6 +71,7 @@ public class PageInfo implements Parcelable {
 
 	public void setLines(ArrayList<LineOfInformation> lines) {
 		this.mLines = lines;
+		Collections.sort(mLines);
 	}
 
 	public String getName() {
@@ -85,5 +89,4 @@ public class PageInfo implements Parcelable {
 	public void setDescription(String description) {
 		this.mDescription = description;
 	}
-
 }

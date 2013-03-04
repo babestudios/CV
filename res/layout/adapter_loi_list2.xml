@@ -7,14 +7,15 @@
         android:id="@+id/cpn"
         style="@style/Text.Emphasised"
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/widget_margin"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/widget_margin" />
 
     <TextView
         android:id="@+id/lbl_text"
         style="@style/Text"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/cpn"
-        android:layout_marginRight="@dimen/widget_margin"
-        android:layout_alignParentRight="true" />
+        android:layout_marginLeft="@dimen/widget_margin_double"
+        android:layout_marginRight="@dimen/widget_margin_double" />
 
 </RelativeLayout>

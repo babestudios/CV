@@ -15,15 +15,14 @@
         style="@style/Text"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/cpn"
-        android:layout_marginLeft="@dimen/widget_margin_double"
-        android:layout_marginRight="@dimen/widget_margin_double" />
+        android:layout_marginLeft="@dimen/widget_margin_double" />
 
-    <TextView
-        android:id="@+id/lbl_detail"
-        style="@style/Text"
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="@dimen/profile_image_width"
+        android:layout_height="@dimen/profile_image_height"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/lbl_text"
-        android:layout_marginLeft="@dimen/widget_margin_double"
-        android:layout_marginRight="@dimen/widget_margin_double" />
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/widget_margin" />
 
 </RelativeLayout>
