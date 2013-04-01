@@ -22,32 +22,45 @@ import com.herrbert74.cvpresenter.R;
 import com.herrbert74.cvpresenter.adapters.LineOfInformationAdapter;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
 
+/**
+ * The Class PageInfoFragment. Represents a CV page.
+ */
 public class PageInfoFragment extends Fragment implements CVConstants {
 	
+	/** The m position. */
 	int mPosition;
+	
+	/** The m title. */
 	String mTitle;
+	
+	/** The m font_buttons. */
 	Typeface mFont_buttons;
+	
+	/** The m page info. */
 	static PageInfo mPageInfo;
+	
+	/** The iv. */
 	ImageView iv;
 
+	/**
+	 * New instance.
+	 *
+	 * @param position the position
+	 * @param pageInfo the page info
+	 * @return the page info fragment
+	 */
 	public static PageInfoFragment newInstance(int position, PageInfo pageInfo) {
 		PageInfoFragment f = new PageInfoFragment();
 		Bundle args = new Bundle();
 		args.putInt("position", position);
 		args.putParcelable("pageinfo", pageInfo);
 		f.setArguments(args);
-
-		// WindowManager wm = (WindowManager) CVApp.getContext().getSystemService(Context.WINDOW_SERVICE);
-		// Display display = wm.getDefaultDisplay();
-		// DisplayMetrics size = new DisplayMetrics();
-		// display.getMetrics(size);
-		// int width = size.widthPixels;
-		// float substraction = TypedValue
-		// .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, CVApp.getContext().getResources().getDisplayMetrics());
-
 		return f;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +68,9 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		mPageInfo = getArguments() != null ? (PageInfo) getArguments().getParcelable("pageinfo") : null;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -89,6 +105,10 @@ public class PageInfoFragment extends Fragment implements CVConstants {
 		iv = (ImageView) v.findViewById(R.id.iv);
 		return v;
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
 	public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final int resID = BACKGROUNDS_ANDROID[mPosition];

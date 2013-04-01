@@ -56,7 +56,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 	/** True, if the pass code was saved. We load the data from SavedPreferences*/
 	boolean isPassCodeSaved;
 	
-	/** Needed for don't trigger actionbar.onnavigationselected actions(restart activity). */
+	/** Used to prevent actionbar.onnavigationselected actions(restart activity). */
 	private boolean isLoading = true;
 
 	/* (non-Javadoc)
@@ -107,10 +107,6 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 				pager.setAdapter(adapter);
 				indicator.setViewPager(pager);
 				indicator.setOnPageChangeListener(new MyPageChangeListener());
-				//If case of a web request save CVNo in member. It's used at theme changing (we don't need to send web request again)
-				/*if(mRequestedCVNo == -1){
-					mRequestedCVNo = prefs.getCVIDs().length - 1;
-				}*/
 			}
 		});
 	}

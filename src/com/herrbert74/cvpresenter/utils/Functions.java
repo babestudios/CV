@@ -4,30 +4,35 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+/**
+ * The Class Functions. Contains static functions.
+ */
 public class Functions {
 	
-	//With inSampleSize for loads of images
+	/**
+	 * Decode sampled bitmap from resource with inSampleSize. For lots of images.
+	 *
+	 * @param res the res
+	 * @param resId the res id
+	 * @param inSampleSize the in sample size
+	 * @return the bitmap
+	 */
 	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int inSampleSize) {
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = inSampleSize;
 		return BitmapFactory.decodeResource(res, resId, options);
 	}
 
-	//Without inSampleSize
+	//
+	/**
+	 * Decode sampled bitmap from resource without inSampleSize. For a small number of images.
+	 *
+	 * @param res the res
+	 * @param resId the res id
+	 * @return the bitmap
+	 */
 	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId) {
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		return BitmapFactory.decodeResource(res, resId, options);
-	}
-
-	public static int getPositionInArray(int[] numbers, int v)
-	{
-		int position = -1;
-		for(int i=0; i<numbers.length; i++)
-		{
-			if(numbers[i] == v){
-				position = i;
-			}
-		}
-		return position;
 	}
 }

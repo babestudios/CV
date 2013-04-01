@@ -15,12 +15,41 @@ import com.herrbert74.cvpresenter.CVConstants;
 import com.herrbert74.cvpresenter.pojos.LineOfInformation;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WebRequests.
+ */
 public class WebRequests implements CVConstants {
 
+	/**
+	 * The listener interface for receiving getCVLines events.
+	 * The class that is interested in processing a getCVLines
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addGetCVLinesListener<code> method. When
+	 * the getCVLines event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see GetCVLinesEvent
+	 */
 	public interface GetCVLinesListener {
+		
+		/**
+		 * Parsing finished.
+		 *
+		 * @param to the to
+		 */
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
+	/**
+	 * Gets the CV lines through a helper class.
+	 *
+	 * @param context the context
+	 * @param passCode the requested CV pass code
+	 * @param isPassCodeSaved if saved, restore form preferences
+	 * @param listener the listener interface to deal with the data in the activity
+	 */
 	public static void getCVLines(Context context, final int passCode, final boolean isPassCodeSaved, final GetCVLinesListener listener) {
 
 		final Context ctx = context;
@@ -51,9 +80,10 @@ public class WebRequests implements CVConstants {
 							String text = json_loi.getString("line_text");
 							String detail = json_loi.getString("detail");
 							String link = json_loi.getString("link");
-							// Save response to preferences
+							
 							if (caption.equals("Name")) {
 								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
+								// If this code was not saved yet, save id and name to preferences
 								if (!isPassCodeSaved) {
 									prefs.saveString(Integer.toString(passCode), response);
 									if (!prefs.containCVID(passCode)) {
@@ -82,7 +112,7 @@ public class WebRequests implements CVConstants {
 		};
 
 		String url = String.format(URL_PATH_CVLINES, passCode);
-		WebRequestHelper.parseArray((Activity) context, url, passCode, isPassCodeSaved, null, jsonparserListener);
+		WebRequestHelper.parseArray((Activity) context, url, passCode, isPassCodeSaved, jsonparserListener);
 
 	}
 }

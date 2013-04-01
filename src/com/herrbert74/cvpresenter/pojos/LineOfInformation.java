@@ -3,14 +3,39 @@ package com.herrbert74.cvpresenter.pojos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * The Class LineOfInformation.
+ */
 public class LineOfInformation implements Parcelable, Comparable<LineOfInformation> {
+	
+	/** The id_line. */
 	int mId_line;
+	
+	/** The style. */
 	int mStyle;
+	
+	/** The caption. */
 	String mCaption;
+	
+	/** The text. */
 	String mText;
+	
+	/** The detail. */
 	String mDetail;
+	
+	/** The link. */
 	String mLink;
 	
+	/**
+	 * Instantiates a new line of information.
+	 *
+	 * @param id_line the id_line
+	 * @param style the style
+	 * @param caption the caption
+	 * @param text the text
+	 * @param detail the detail
+	 * @param link the link
+	 */
 	public LineOfInformation(int id_line, int style, String caption, String text, String detail, String link) {
 		mId_line = id_line;
 		mStyle = style;
@@ -20,6 +45,11 @@ public class LineOfInformation implements Parcelable, Comparable<LineOfInformati
 		mLink = link;
 	}
 
+	/**
+	 * Instantiates a new line of information.
+	 *
+	 * @param in the in
+	 */
 	public LineOfInformation(Parcel in) {
 		mId_line = in.readInt();
 		mStyle = in.readInt();
@@ -77,11 +107,17 @@ public class LineOfInformation implements Parcelable, Comparable<LineOfInformati
 		this.mDetail = detail;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#describeContents()
+	 */
 	@Override
 	public int describeContents() {
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(mId_line);
@@ -93,6 +129,7 @@ public class LineOfInformation implements Parcelable, Comparable<LineOfInformati
 		
 	}
 
+	/** The Constant CREATOR. */
 	public static final Parcelable.Creator<LineOfInformation> CREATOR = new Parcelable.Creator<LineOfInformation>() {
 		public LineOfInformation createFromParcel(Parcel in) {
 			return new LineOfInformation(in);
@@ -103,6 +140,9 @@ public class LineOfInformation implements Parcelable, Comparable<LineOfInformati
 		}
 	};
 
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(LineOfInformation another) {
 		return this.getmId_line() - another.getmId_line();

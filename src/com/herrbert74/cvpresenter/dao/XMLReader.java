@@ -14,8 +14,20 @@ import com.herrbert74.cvpresenter.R;
 import com.herrbert74.cvpresenter.pojos.LineOfInformation;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XMLReader.
+ */
 public class XMLReader {
 
+	/**
+	 * Gets the CV pages from xml.
+	 *
+	 * @param context the context
+	 * @return the pages from xml
+	 * @throws XmlPullParserException the xml pull parser exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static ArrayList<PageInfo> getPagesFromXML(Context context) throws XmlPullParserException, IOException {
 		ArrayList<PageInfo> pageInfos = new ArrayList<PageInfo>();
 		PageInfo pageInfo = new PageInfo();

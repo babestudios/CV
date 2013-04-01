@@ -27,64 +27,71 @@ import com.herrbert74.cvpresenter.CVConstants;
 import com.herrbert74.cvpresenter.R;
 import com.herrbert74.cvpresenter.pojos.LineOfInformation;
 
+/**
+ * The Class LineOfInformationAdapter. Used to provide data for a CV page.
+ */
 public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> implements CVConstants {
+	
+	/** The m context. */
 	Context mContext;
+	
+	/** The data. */
 	private final List<LineOfInformation> mLines;
+	
+	/** The m font_buttons. */
 	Typeface mFont_titles, mFont_buttons;
 
+	/**
+	 * Instantiates a new line of information adapter.
+	 *
+	 * @param context the context
+	 * @param lines the lines
+	 */
 	public LineOfInformationAdapter(Context context, List<LineOfInformation> lines) {
 		super(context, R.layout.adapter_loi_list3, lines);
 		mContext = context;
 		mLines = lines;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView;
 		LineOfInformation loi = mLines.get(position);
+		//Image type
 		if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("image")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_image, parent, false);
 			AQuery aq = new AQuery(rowView);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
-			ImageView iv = (ImageView) rowView.findViewById(R.id.iv);
 			cpn.setText(loi.getmCaption());
 			lbl_text.setText(loi.getmText());
-			/*URL url = null;
-			try {
-				url = new URL(loi.getLink());
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Bitmap bmp = null;
-			try {
-				bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			iv.setImageBitmap(bmp);*/
 			try {
 				aq.id(R.id.iv).image(loi.getLink());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//new DownloadImageTask((ImageView) rowView.findViewById(R.id.iv)).execute(loi.getLink());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list1")) {
+		}
+		//List type with 1 data element
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list1")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list1, parent, false);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
 			lbl_text.setText(loi.getmText());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list2")) {
+		}
+		//List type with 2 data element
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list2")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list2, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
 			cpn.setText(loi.getmCaption());
 			lbl_text.setText(loi.getmText());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list3")) {
+		}
+		//List type with 3 data element
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list3")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list3, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
@@ -92,45 +99,41 @@ public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> im
 			cpn.setText(loi.getmCaption());
 			lbl_text.setText(loi.getmText());
 			lbl_detail.setText(loi.getmDetail());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("header")) {
+		}
+		//List type with header data
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("header")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_header, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			cpn.setText(loi.getmCaption());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("detail")) {
+		}
+		//List type with detail data
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("detail")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list1, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			cpn.setText(loi.getmCaption());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link1")) {
+		}
+		//List type with link
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link1")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_link2, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_link = (TextView) rowView.findViewById(R.id.lbl_link);
-			// lbl_link.setAutoLinkMask(Linkify.WEB_URLS);
-			final String str = lbl_link.getText().toString();
-			/*lbl_link.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
-					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					CVApp.getContext().startActivity(i);
-					
-				}
-			});*/
 			cpn.setText(loi.getmCaption());
 			SpannableString content = new SpannableString(loi.getLink());
 			content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 			lbl_link.setText(loi.getLink());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link2")) {
+		}
+		//List type with link
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("link2")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_link2, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_detail = (TextView) rowView.findViewById(R.id.lbl_detail);
 			TextView lbl_link = (TextView) rowView.findViewById(R.id.lbl_link);
-			// Linkify.addLinks(lbl, Linkify.ALL);
-
 			cpn.setText(loi.getmCaption());
 			lbl_detail.setText(loi.getmDetail());
 			lbl_link.setText(loi.getLink());
-		} else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list_bar")) {
+		}
+		//List type with list bar data
+		else if (loi.getmStyle() == Arrays.asList(CV_LINE_STYLES).indexOf("list_bar")) {
 			rowView = inflater.inflate(R.layout.adapter_loi_list_bar, parent, false);
 			TextView cpn = (TextView) rowView.findViewById(R.id.cpn);
 			TextView lbl_text = (TextView) rowView.findViewById(R.id.lbl_text);
@@ -178,29 +181,4 @@ public class LineOfInformationAdapter extends ArrayAdapter<LineOfInformation> im
 		}
 		return rowView;
 	}
-	
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-		  ImageView bmImage;
-
-		  public DownloadImageTask(ImageView bmImage) {
-		      this.bmImage = bmImage;
-		  }
-
-		  protected Bitmap doInBackground(String... urls) {
-		      String urldisplay = urls[0];
-		      Bitmap mIcon11 = null;
-		      try {
-		        InputStream in = new java.net.URL(urldisplay).openStream();
-		        mIcon11 = BitmapFactory.decodeStream(in);
-		      } catch (Exception e) {
-		          Log.e("Error", e.getMessage());
-		          e.printStackTrace();
-		      }
-		      return mIcon11;
-		  }
-
-		  protected void onPostExecute(Bitmap result) {
-		      bmImage.setImageBitmap(result);
-		  }
-		}
 }

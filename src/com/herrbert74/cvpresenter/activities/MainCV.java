@@ -27,26 +27,35 @@ import com.herrbert74.cvpresenter.CVConstants;
 import com.herrbert74.cvpresenter.R;
 import com.herrbert74.cvpresenter.dao.SharedPreferencesHelper;
 
+/**
+ * The Class MainCV.
+ */
 @EActivity(R.layout.activity_main)
 public class MainCV extends SherlockFragmentActivity implements CVConstants, ActionBar.OnNavigationListener {
 
 	@ViewById
 	Button btn_fill;
+	
 	@ViewById
 	EditText txt_fill;
+	
 	@ViewById
 	Spinner sp_load;
 
 	transient SharedPreferencesHelper prefs;
 
+	/** The actual theme for the activity. */
 	private int mTheme;
 
-	// Needed for don't trigger actionbar.onnavigationselected actions(restart
-	// activity)
+	/** Used to prevent actionbar.onnavigationselected actions(restart activity). */
 	private boolean isLoading = true;
-	// Needed for don't trigger load spinner(start cv activity)
+
+	/** Used to prevent triggering the spinner action (start CV activity). */
 	private boolean isLoadingSpinner = true;
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		prefs = new SharedPreferencesHelper();
@@ -127,6 +136,11 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 		});
 	}
 
+	/**
+	 * Gets the CVID list.
+	 *
+	 * @return the CVID list
+	 */
 	private List<String> getCVIDList() {
 		SharedPreferencesHelper prefs = new SharedPreferencesHelper();
 		List<String> list = new ArrayList<String>();
@@ -139,6 +153,9 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.actionbarsherlock.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int, long)
+	 */
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		if (isLoading) {
