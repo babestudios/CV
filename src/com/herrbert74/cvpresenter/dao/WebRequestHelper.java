@@ -29,6 +29,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.herrbert74.cvpresenter.CVConstants;
+import com.herrbert74.cvpresenter.utils.Functions;
 
 public class WebRequestHelper implements CVConstants {
 	public interface JSONParserListener {
@@ -76,7 +77,7 @@ public class WebRequestHelper implements CVConstants {
 		return list;
 	}
 
-	public static void parseArray(final Activity activity, final String _url, final boolean isWebrequest, final List<NameValuePair> list, final JSONParserListener _listener) {
+	public static void parseArray(final Activity activity, final String _url, final int passCode, final boolean isPassCodeSaved, final List<NameValuePair> list, final JSONParserListener _listener) {
 		final String request = (!_url.startsWith("http://") ? SERVER_DOMAIN + _url : _url);
 		final SharedPreferencesHelper prefs = new SharedPreferencesHelper();
 		new Thread(new Runnable() {
@@ -89,7 +90,8 @@ public class WebRequestHelper implements CVConstants {
 					try {
 						final JSONTokener tokener;
 						final String responseString;
-						if (isWebrequest) {
+						//Web request
+						if (!isPassCodeSaved) {
 							response = startHTTPRequest(activity, request, list);
 							reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 							StringBuilder builder = new StringBuilder();
@@ -99,9 +101,10 @@ public class WebRequestHelper implements CVConstants {
 							tokener = new JSONTokener(builder.toString());
 
 							responseString = builder.toString();
-						} else {
-							//TODO change one to the passcode (get ordinal number form passcode)
-							String restoreCV = prefs.restoreCV(Integer.toString(prefs.getCVIDs()[1]));
+						} 
+						//Restore from preferences
+						else {
+							String restoreCV = prefs.restoreCV(Integer.toString(passCode));
 							tokener = new JSONTokener(restoreCV);
 							responseString = restoreCV;
 

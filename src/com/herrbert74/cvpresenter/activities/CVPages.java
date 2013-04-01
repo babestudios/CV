@@ -53,9 +53,9 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 	/** The pass code of the requested CV. */
 	private int mPassCode;
 	
-	/** Requested id to load from SharedPreferences. */
-	//private int mRequestedCVNo;
-
+	/** True, if the pass code was saved. We load the data from SavedPreferences*/
+	boolean isPassCodeSaved;
+	
 	/** Needed for don't trigger actionbar.onnavigationselected actions(restart activity). */
 	private boolean isLoading = true;
 
@@ -72,8 +72,8 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		mTheme = getIntent().getIntExtra("theme", prefs.theme);
 
 		mPassCode = getIntent().getIntExtra("passcode", -1);
-		//mRequestedCVNo = getIntent().getIntExtra("requested_cv_no", -1);
-
+		isPassCodeSaved = getIntent().getIntExtra("ispasscodesaved", -1) == 1;
+		
 		switch (mTheme) {
 		case 0:
 			setTheme(R.style.Theme_Android);
@@ -97,8 +97,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	@AfterViews
 	public void av() {
-		boolean isWebRequest = mPassCode > -1;
-		WebRequests.getCVLines( CVPages.this, mPassCode, isWebRequest, new GetCVLinesListener() {
+		WebRequests.getCVLines( CVPages.this, mPassCode, isPassCodeSaved, new GetCVLinesListener() {
 
 			@Override
 			public void parsingFinished(ArrayList<PageInfo> cv) {

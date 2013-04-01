@@ -114,6 +114,7 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 					intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
 					StringTokenizer tokenizer = new StringTokenizer((String) sp_load.getSelectedItem());
 					intent.putExtra("passcode", Integer.parseInt(tokenizer.nextToken()));
+					intent.putExtra("ispasscodesaved", 1);
 					startActivity(intent);
 					finish();
 				}

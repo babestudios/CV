@@ -19,4 +19,15 @@ public class Functions {
 		return BitmapFactory.decodeResource(res, resId, options);
 	}
 
+	public static int getPositionInArray(int[] numbers, int v)
+	{
+		int position = -1;
+		for(int i=0; i<numbers.length; i++)
+		{
+			if(numbers[i] == v){
+				position = i;
+			}
+		}
+		return position;
+	}
 }

@@ -21,7 +21,7 @@ public class WebRequests implements CVConstants {
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
-	public static void getCVLines(Context context, final int passCode, final boolean isWebrequest, final GetCVLinesListener listener) {
+	public static void getCVLines(Context context, final int passCode, final boolean isPassCodeSaved, final GetCVLinesListener listener) {
 
 		final Context ctx = context;
 		WebRequestHelper.JSONParserListener jsonparserListener = new WebRequestHelper.JSONParserListener() {
@@ -54,7 +54,7 @@ public class WebRequests implements CVConstants {
 							// Save response to preferences
 							if (caption.equals("Name")) {
 								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
-								if (isWebrequest) {
+								if (!isPassCodeSaved) {
 									prefs.saveString(Integer.toString(passCode), response);
 									if (!prefs.containCVID(passCode)) {
 										prefs.appendCVID(passCode);
@@ -82,7 +82,7 @@ public class WebRequests implements CVConstants {
 		};
 
 		String url = String.format(URL_PATH_CVLINES, passCode);
-		WebRequestHelper.parseArray((Activity) context, url, isWebrequest, null, jsonparserListener);
+		WebRequestHelper.parseArray((Activity) context, url, passCode, isPassCodeSaved, null, jsonparserListener);
 
 	}
 }
