@@ -2,6 +2,7 @@ package com.herrbert74.cvpresenter.activities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,8 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 
 	private int mTheme;
 
-	// Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
+	// Needed for don't trigger actionbar.onnavigationselected actions(restart
+	// activity)
 	private boolean isLoading = true;
 	// Needed for don't trigger load spinner(start cv activity)
 	private boolean isLoadingSpinner = true;
@@ -50,7 +52,8 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 		prefs = new SharedPreferencesHelper();
 		prefs.restorePreferences();
 
-		// If theme was changed, get it from intent. Otherwise, get it from sharedpreferences
+		// If theme was changed, get it from intent. Otherwise, get it from
+		// sharedpreferences
 		mTheme = getIntent().getIntExtra("theme", prefs.theme);
 
 		switch (mTheme) {
@@ -109,7 +112,8 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 					// Fetch the cv from preferences instead of the web
 					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
 					intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
-					intent.putExtra("requested_cv_no", arg2 - 1);
+					StringTokenizer tokenizer = new StringTokenizer((String) sp_load.getSelectedItem());
+					intent.putExtra("passcode", Integer.parseInt(tokenizer.nextToken()));
 					startActivity(intent);
 					finish();
 				}
