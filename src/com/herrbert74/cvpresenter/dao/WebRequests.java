@@ -8,11 +8,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.herrbert74.cvpresenter.CVApp;
 import com.herrbert74.cvpresenter.CVConstants;
 import com.herrbert74.cvpresenter.pojos.LineOfInformation;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
@@ -23,8 +21,7 @@ public class WebRequests implements CVConstants {
 		public void parsingFinished(ArrayList<PageInfo> to);
 	};
 
-	public static void getCVLines(final int id, Context context, final boolean isWebrequest, int requestedcvno,
-			final GetCVLinesListener listener) {
+	public static void getCVLines(Context context, final int passCode, final boolean isWebrequest, final GetCVLinesListener listener) {
 
 		final Context ctx = context;
 		WebRequestHelper.JSONParserListener jsonparserListener = new WebRequestHelper.JSONParserListener() {
@@ -55,12 +52,12 @@ public class WebRequests implements CVConstants {
 							String detail = json_loi.getString("detail");
 							String link = json_loi.getString("link");
 							// Save response to preferences
-							if (caption.equals("name")) {
+							if (caption.equals("Name")) {
 								SharedPreferencesHelper prefs = new SharedPreferencesHelper();
 								if (isWebrequest) {
-									prefs.saveString(Integer.toString(id), response);
-									if (!prefs.containCVID(id)) {
-										prefs.appendCVID(id);
+									prefs.saveString(Integer.toString(passCode), response);
+									if (!prefs.containCVID(passCode)) {
+										prefs.appendCVID(passCode);
 										prefs.appendCVName(text);
 									}
 								}
@@ -84,8 +81,8 @@ public class WebRequests implements CVConstants {
 			}
 		};
 
-		String url = String.format(URL_PATH_CVLINES, id);
-		WebRequestHelper.parseArray((Activity) context, url, isWebrequest, requestedcvno, null, jsonparserListener);
+		String url = String.format(URL_PATH_CVLINES, passCode);
+		WebRequestHelper.parseArray((Activity) context, url, isWebrequest, null, jsonparserListener);
 
 	}
 }

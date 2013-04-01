@@ -4,14 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -21,45 +17,51 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.herrbert74.cvpresenter.CVApp;
 import com.herrbert74.cvpresenter.CVConstants;
 import com.herrbert74.cvpresenter.R;
-import com.herrbert74.cvpresenter.adapters.MainPagerAdapter;
+import com.herrbert74.cvpresenter.adapters.CVPagerAdapter;
 import com.herrbert74.cvpresenter.dao.SharedPreferencesHelper;
 import com.herrbert74.cvpresenter.dao.WebRequests;
 import com.herrbert74.cvpresenter.dao.WebRequests.GetCVLinesListener;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
 import com.viewpagerindicator.IconPageIndicator;
 
+/**
+ * The Class CVPages.
+ */
 @EActivity(R.layout.activity_cvpages)
 public class CVPages extends SherlockFragmentActivity implements CVConstants, ActionBar.OnNavigationListener {
 
-	TextView lbl_title;
-	Button btn_back, btn_next, btn_exit;
-	String[] readme_array = new String[6];
-
-	// Preferences
-	SharedPreferences settings;
+	/** SharedPreference helper class. */
 	SharedPreferencesHelper prefs;
 
+	/** The CV pager. */
 	@ViewById
 	ViewPager pager;
+	
+	/** The CV page indicator. */
 	@ViewById
 	IconPageIndicator indicator;
 
-	MainPagerAdapter adapter;
+	/** The adapter that provides the data for the CV Pages. */
+	CVPagerAdapter adapter;
 
-	Typeface mFont_titles;
-
+	/** The list fed to the adapter. */
 	ArrayList<PageInfo> mPageInfoList;
 
+	/** The actual theme for the activity. */
 	private int mTheme;
 
-	//Requested id from the web
-	private int mRequestedCVID;
-	//Requested id to load from sharedpreferences
-	private int mRequestedCVNo;
+	/** The pass code of the requested CV. */
+	private int mPassCode;
+	
+	/** Requested id to load from SharedPreferences. */
+	//private int mRequestedCVNo;
 
-	// Needed for don't trigger actionbar.onnavigationselected actions(restart activity)
+	/** Needed for don't trigger actionbar.onnavigationselected actions(restart activity). */
 	private boolean isLoading = true;
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -69,8 +71,8 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		// If theme was changed, get it from intent. Otherwise, get it from sharedpreferences
 		mTheme = getIntent().getIntExtra("theme", prefs.theme);
 
-		mRequestedCVID = getIntent().getIntExtra("requested_cv_id", -1);
-		mRequestedCVNo = getIntent().getIntExtra("requested_cv_no", -1);
+		mPassCode = getIntent().getIntExtra("passcode", -1);
+		//mRequestedCVNo = getIntent().getIntExtra("requested_cv_no", -1);
 
 		switch (mTheme) {
 		case 0:
@@ -82,18 +84,6 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		default:
 		}
 		super.onCreate(savedInstanceState);
-
-		/*try {
-			mPageInfoList = XMLReader.getPagesFromXML(this);
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
-		// mThemes = getResources().getStringArray(R.array.themes);
 
 		Context context = getSupportActionBar().getThemedContext();
 		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.themes, R.layout.sherlock_spinner_item);
@@ -107,36 +97,50 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 
 	@AfterViews
 	public void av() {
-		boolean isWebRequest = mRequestedCVID > -1;
-		WebRequests.getCVLines(isWebRequest ? mRequestedCVID : mRequestedCVNo, CVPages.this, isWebRequest, mRequestedCVNo, new GetCVLinesListener() {
+		boolean isWebRequest = mPassCode > -1;
+		WebRequests.getCVLines( CVPages.this, mPassCode, isWebRequest, new GetCVLinesListener() {
 
 			@Override
 			public void parsingFinished(ArrayList<PageInfo> cv) {
 				mPageInfoList = cv;
 				// Pager
-				adapter = new MainPagerAdapter(getSupportFragmentManager(), mPageInfoList, mTheme);
+				adapter = new CVPagerAdapter(getSupportFragmentManager(), mPageInfoList, mTheme);
 				pager.setAdapter(adapter);
 				indicator.setViewPager(pager);
 				indicator.setOnPageChangeListener(new MyPageChangeListener());
 				//If case of a web request save CVNo in member. It's used at theme changing (we don't need to send web request again)
-				if(mRequestedCVNo == -1){
+				/*if(mRequestedCVNo == -1){
 					mRequestedCVNo = prefs.getCVIDs().length - 1;
-				}
+				}*/
 			}
 		});
 	}
 
+	/**
+	 * The listener interface for receiving myPageChange events.
+	 * The class that is interested in processing a myPageChange
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMyPageChangeListener<code> method. When
+	 * the myPageChange event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MyPageChangeEvent
+	 */
 	private class MyPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
-		@Override
-		public void onPageSelected(int position) {
-			/*btn_back.setEnabled(position == 0 ? false : true);
-			btn_next
-					.setEnabled(position == pager.getAdapter().getCount() - 1 ? false
-							: true);
-			lbl_title.setText(readme_array[position]);*/
-		}
+		
+		/* (non-Javadoc)
+		 * @see android.support.v4.view.ViewPager.SimpleOnPageChangeListener#onPageSelected(int)
+		 */
+		/*@Override
+		public void onPageSelected(int position) {		}*/
 	}
 
+	/* (non-Javadoc)
+	 * @see com.actionbarsherlock.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int, long)
+	 * 
+	 * Used for theme changing
+	 */
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		if (isLoading) {
@@ -144,7 +148,7 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		} else {
 			Intent intent = new Intent(this, CVPages_.class);
 			intent.putExtra("theme", itemPosition);
-			intent.putExtra("requested_cv_no", mRequestedCVNo);
+			intent.putExtra("passcode", mPassCode);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
@@ -152,6 +156,9 @@ public class CVPages extends SherlockFragmentActivity implements CVConstants, Ac
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

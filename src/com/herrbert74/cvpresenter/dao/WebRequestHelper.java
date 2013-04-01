@@ -14,12 +14,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +43,7 @@ public class WebRequestHelper implements CVConstants {
 		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 
 		if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting()) {
-			throw new Exception("Nincs internetkapcsolat!");
+			throw new Exception("There is no internet connection!");
 		}
 
 		HttpResponse response = null;
@@ -63,7 +59,8 @@ public class WebRequestHelper implements CVConstants {
 		return response;
 	}
 
-	private static ArrayList<JSONObject> jsonToArray(JSONArray array) {
+	@Deprecated
+	public static ArrayList<JSONObject> jsonToArray(JSONArray array) {
 		ArrayList<JSONObject> list = new ArrayList<JSONObject>();
 		if (array != null) {
 			int len = array.length();
@@ -79,8 +76,7 @@ public class WebRequestHelper implements CVConstants {
 		return list;
 	}
 
-	public static void parseArray(final Activity activity, final String _url, final boolean isWebrequest, final int requestedcvno,
-			final List<NameValuePair> list, final JSONParserListener _listener) {
+	public static void parseArray(final Activity activity, final String _url, final boolean isWebrequest, final List<NameValuePair> list, final JSONParserListener _listener) {
 		final String request = (!_url.startsWith("http://") ? SERVER_DOMAIN + _url : _url);
 		final SharedPreferencesHelper prefs = new SharedPreferencesHelper();
 		new Thread(new Runnable() {
@@ -104,7 +100,8 @@ public class WebRequestHelper implements CVConstants {
 
 							responseString = builder.toString();
 						} else {
-							String restoreCV = prefs.restoreCV(Integer.toString(prefs.getCVIDs()[requestedcvno]));
+							//TODO change one to the passcode (get ordinal number form passcode)
+							String restoreCV = prefs.restoreCV(Integer.toString(prefs.getCVIDs()[1]));
 							tokener = new JSONTokener(restoreCV);
 							responseString = restoreCV;
 

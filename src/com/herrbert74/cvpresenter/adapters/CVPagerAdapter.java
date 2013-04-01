@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.herrbert74.cvpresenter.CVConstants;
@@ -14,12 +13,12 @@ import com.herrbert74.cvpresenter.fragments.PageInfoFragment;
 import com.herrbert74.cvpresenter.pojos.PageInfo;
 import com.viewpagerindicator.IconPagerAdapter;
 
-public class MainPagerAdapter extends FragmentStatePagerAdapter implements CVConstants, IconPagerAdapter {
+public class CVPagerAdapter extends FragmentStatePagerAdapter implements CVConstants, IconPagerAdapter {
 
 	ArrayList<PageInfo> mPageInfoList;
 	int[] icons;
 	
-	public MainPagerAdapter(FragmentManager fm, ArrayList<PageInfo> pageInfoList, int theme) {
+	public CVPagerAdapter(FragmentManager fm, ArrayList<PageInfo> pageInfoList, int theme) {
 		super(fm);
 		mPageInfoList = pageInfoList;
 		if(theme == 0){
@@ -35,7 +34,6 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter implements CVCon
 
 	@Override
 	public Fragment getItem(int position) {
-		Log.d("cv", "page: " + Integer.toString(position));
 		return PageInfoFragment.newInstance(position, mPageInfoList.get(position));
 	}
 	

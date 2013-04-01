@@ -83,11 +83,11 @@ public class MainCV extends SherlockFragmentActivity implements CVConstants, Act
 			@Override
 			public void onClick(View v) {
 
-				String requested_cv_id = txt_fill.getText().toString();
-				if (requested_cv_id.length() > 0) {
+				String passcode = txt_fill.getText().toString();
+				if (passcode.length() > 0) {
 					Intent intent = new Intent(CVApp.getContext(), CVPages_.class);
 					intent.putExtra("theme", getSupportActionBar().getSelectedNavigationIndex());
-					intent.putExtra("requested_cv_id", Integer.parseInt(requested_cv_id));
+					intent.putExtra("passcode", Integer.parseInt(passcode));
 					startActivity(intent);
 					finish();
 				} else {

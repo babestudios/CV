@@ -1,7 +1,5 @@
 package com.herrbert74.cvpresenter.dao;
 
-import java.util.Set;
-
 import android.content.SharedPreferences;
 
 import com.herrbert74.cvpresenter.CVApp;
